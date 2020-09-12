@@ -1,0 +1,76 @@
+﻿@using System.Net.Mail
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <span>Invite: </span>
+
+            <input type="text" id="email" name="email" placeholder="Enter Email..">
+            <input type="button" id="sendinvemail" value="Send" /><br />
+            <span>enter your name :</span><br />
+            <input type="text" name="from" id="txtuser" /><br />
+
+            <span>enter your message</span><br />
+            <textarea rows="10" name="txtName" cols="50" id="txtmessage"></textarea><br />
+
+
+            <button class="btn btn-info" type="submit" id="btnsend">send message</button>
+
+        </div>
+        <div class="col-md-6">
+            <h3>Message List :</h3>
+            <ul class="alert alert-info" id="list">
+            </ul>
+            <form asp-controller="ChatRoom" asp-action="GetDetails" method="post">
+
+                <button type="submit">Save Chat</button>
+
+            </form>
+        </div>
+
+
+    </div>
+
+
+</div>
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script>
+
+    $("#sendinvemail").click(function () {
+        console.log("Clicked");
+        const emailAddress = $('#email').val();
+        console.log(emailAddress);
+        $.ajax({
+            type: "POST",
+            url: "https://localhost:44347/ChatRoom/SendEmail",
+            data: { 'email': emailAddress },
+            success: function (data) {
+                $('#email').val('');
+                alert("Email sent successfully");
+            }
+
+        });
+    });
+
+
+    //function SendInvitation() {
+    //    console.log("I am in")
+    //
+
+    //}
+    //$("#sendemail").click(function() {
+
+    //    const emailAddress = $('#email').val();
+    //    console.log(emailAddress);
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "https://localhost:44347/ChatRoom/SendEmail",
+    //        data: emailAddress
+    //        success: function (data) {
+    //            console.log("Email sent successfully");
+    //            alert("Success");
+    //        }
+    //    });
+    //}
+</script>
+<script src="~/js/site.js"></script>
